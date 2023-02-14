@@ -28,22 +28,7 @@ rocky = screen.blit(rock_image, (50,200))
 scissorz = screen.blit(scissors_image, (550,200))
 papers = screen.blit(paper_image, (300,200))
 
-
 #functions to make interactable objects
-def rock(x,y):
-   screen.blit(rock_image, (x,y))
-   #unused
-
-
-def scissors(x,y):
-   screen.blit(scissors_image, (x,y))
-   #unused
-
-
-def paper(x,y):
-   screen.blit(paper_image, (x,y))
-   #unused
-
 
 def text_func(text,x,y,font,size,color):
    set_my_font = pygame.font.SysFont(font, size)
