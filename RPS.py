@@ -51,57 +51,61 @@ def descision(rand_int, type):
 
 
 while running:
-
+  
+  play_again = True
+  is_playing = True
 
  #get input
- for event in pygame.event.get():
-     if event.type == pygame.QUIT:
-         running = False
-     if event.type == pygame.KEYDOWN:
-         if event.key == pygame.K_r:
-             player_1 = "Rock"
-         elif event.key == pygame.K_p:
-             player_1 = "Paper"
-         elif event.key == pygame.K_s:
-             player_1 = "Scissors"
-     if event.type == pygame.MOUSEBUTTONDOWN:
-         mouse_x, mouse_y = event.pos
-         if rocky.collidepoint(mouse_x,mouse_y):
-             player_1 = "Rock"
-         elif scissorz.collidepoint(mouse_x,mouse_y):
-             player_1 = "Scissors"
-         elif papers.collidepoint(mouse_x,mouse_y):
-             player_1 = "Paper"
-
+  for event in pygame.event.get():
+    screen.fill(BG_COLOR)
+    rocky = screen.blit(rock_image, (50,200))
+    scissorz = screen.blit(scissors_image, (550,200))
+    papers = screen.blit(paper_image, (300,200))
+    if is_playing and player_1 == "":
+      if event.type == pygame.QUIT:
+          running = False
+      if event.type == pygame.KEYDOWN:
+          if event.key == pygame.K_r:
+              player_1 = "Rock"
+          elif event.key == pygame.K_p:
+              player_1 = "Paper"
+          elif event.key == pygame.K_s:
+              player_1 = "Scissors"
+      if event.type == pygame.MOUSEBUTTONDOWN:
+          mouse_x, mouse_y = event.pos
+          if rocky.collidepoint(mouse_x,mouse_y):
+              player_1 = "Rock"
+          elif scissorz.collidepoint(mouse_x,mouse_y):
+              player_1 = "Scissors"
+          elif papers.collidepoint(mouse_x,mouse_y):
+              player_1 = "Paper"
 
  #process input
- if player_1 != "":
-     result = descision(random_to_type(), type_dict[player_1])
-     text_func(f"You Selected {player_1}!",135,200,"arial",60,"black")
-     text_func(f"You {result}!",135,500,"arial",60,"black")
-     text_func("Play Again? Y or N",135,450,"arial",60,"black")
-     run = False
-     while run == False:
-       print("hello")
-       for event in pygame.event.get(): 
-         if event.type == pygame.KEYDOWN:
-           if event.key == pygame.K_n:
-             running = False
-             run = True
-           elif event.key == pygame.K_y:
-             player_1 = ""
-             run = True
+    if is_playing and player_1 != "":
+      result = descision(random_to_type(), type_dict[player_1])
+      is_playing = False
+
+    if not is_playing:
+      play_again = False
+      text_func(f"You Selected {player_1}!",135,200,"arial",60,"black")
+      text_func(f"You {result}!",135,500,"arial",60,"black")
+      text_func("Play Again? Y or N",135,450,"arial",60,"black")
+      print("hello")
+      if event.type == pygame.KEYDOWN:
+        if event.key == pygame.K_n:
+          running = False
+          play_again = True
+        elif event.key == pygame.K_y:
+          player_1 = ""
+          play_again = True
+          is_playing = True
 
 
  #update game state
- screen.fill(BG_COLOR)
- rocky = screen.blit(rock_image, (50,200))
- scissorz = screen.blit(scissors_image, (550,200))
- papers = screen.blit(paper_image, (300,200))
- text_func("Select an Option",135,450,"arial",60,"black")
+    text_func("Select an Option",135,450,"arial",60,"black")
         
  #draw screen
- pygame.display.flip()
+  pygame.display.flip()
 
 
 pygame.quit()
